@@ -31,10 +31,25 @@ function displayBooks() {
       <p><strong>Author:</strong> ${book.author}</p>
       <p><strong>Pages:</strong> ${book.pages}</p>
       <p><strong>Status:</strong> ${book.hasRead ? "Read" : "Not read"}</p>
+      <button class="remove-btn" data-id="${book.id}">Remove</button>
     `;
 
     container.appendChild(bookCard);
+
+    // Add event listener to the remove button
+    const removeBtn = bookCard.querySelector(".remove-btn");
+    removeBtn.addEventListener("click", () => {
+        removeBook(book.id);
+    });
   });
+}
+
+function removeBook(bookId) {
+  const index = myLibrary.findIndex((book) => book.id === bookId);
+  if (index !== -1) {
+    myLibrary.splice(index, 1);
+    displayBooks();
+  }
 }
 
 addBookToLibrary("The Shining", "Stephen King", 447, false);
